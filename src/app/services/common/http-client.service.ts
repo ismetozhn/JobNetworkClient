@@ -13,7 +13,11 @@ export class HttpClientService {
   }
 
   private url(requestParameter:Partial<RequestParameters>) : string{
-    return `${requestParameter.baseUrl?requestParameter.baseUrl: this.baseUrl}/${requestParameter.controller}${requestParameter.action?`/${requestParameter.action}`: ""}`;
+
+
+   return `${requestParameter.baseUrl ? requestParameter.baseUrl : this.baseUrl}/${requestParameter.controller}${requestParameter.action ? `/${requestParameter.action}` : ""}`;
+
+   
 
   }
 

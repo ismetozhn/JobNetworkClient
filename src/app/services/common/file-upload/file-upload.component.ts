@@ -14,143 +14,89 @@ import { DialogService } from '../dialog.service';
   styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent {
-
-  constructor(private httpClientService:HttpClientService,private alertifyService:AlertifyService,private customToastrService: CustomToastrService,
+  constructor(
+    private httpClientService: HttpClientService,
+    private alertifyService: AlertifyService,
+    private customToastrService: CustomToastrService,
     private dialog:MatDialog,
-    private dialogService:DialogService){
-
-  }
-
+    private dialogService: DialogService) { }
   public files: NgxFileDropEntry[];
-
-  @Input() options:Partial<FileUploadOptions>;
-
+  @Input() options: Partial<FileUploadOptions>;
   public selectedFiles(files: NgxFileDropEntry[]) {
     this.files = files;
-    const fileData:FormData=new FormData();
-
-    for(const file of files){
-      (file.fileEntry as FileSystemFileEntry).file((_file:File)=>{
-        fileData.append(_file.name,_file,file.relativePath);
+    const fileData: FormData = new FormData();
+    for (const file of files) {
+      (file.fileEntry as FileSystemFileEntry).file((_file: File) => {
+        fileData.append(_file.name, _file, file.relativePath);
       });
     }
     this.dialogService.openDialog({
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState.Yes,
-      afterClosed:()=>{
+      afterClosed: ()=>{
+        
         this.httpClientService.post({
-          controller:this.options.controller,
-          action:this.options.action,
-          queryString:this.options.queryString,
-          headers:new HttpHeaders({"responseType":"blob"})
-       },fileData).subscribe(data => {
-    
-        const message:string="Dosyalar başarıyla yüklenmiştir";
-        if(this.options.isAdminPage){
-          this.alertifyService.message(message,{
-            dismissOthers:true,
-            messageType:MessageType.Success,
-            position:Position.TopRight
+          controller: this.options.controller,
+          action: this.options.action,
+          queryString: this.options.queryString,
+          headers: new HttpHeaders({ "responseType": "blob" })
+
+        }, fileData).subscribe({
+          next: (data) => {
+            // Burada işlem tamamlandığında yapılması gereken işlemleri gerçekleştirin.
+            const message: string = "Dosyalar başarıyla yüklenmiştir.";
+            if (this.options.isAdminPage) {
+              this.alertifyService.message(message, {
+                dismissOthers: true,
+                messageType: MessageType.Success,
+                position: Position.TopRight
+              });
+            } else {
+              this.customToastrService.message(message, "Başarılı.", {
+                messageType: ToastrMessageType.Success,
+                position: ToastrPosition.TopRight
+              });
+            }
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            // Burada bir hata oluştuğunda yapılması gereken işlemleri gerçekleştirin.
+            const message: string = "Dosyalar yüklenirken beklenmeyen bir hatayla karşılaşılmıştır.";
+            if (this.options.isAdminPage) {
+              this.alertifyService.message(message, {
+                dismissOthers: true,
+                messageType: MessageType.Error,
+                position: Position.TopRight
+              });
+            } else {
+              this.customToastrService.message(message, "Başarsız.", {
+                messageType: ToastrMessageType.Error,
+                position: ToastrPosition.TopRight
+              });
+            }
           }
-          )
-        }else{
-          this.customToastrService.message(message,"Başarılı..",{
-            messageType:ToastrMessageType.Success,
-            position:ToastrPosition.TopRight
-          })
-        }
-    
-       },(errorResponse:HttpErrorResponse)=>{
-     
-      
-        const message:string="Dosyalar yüklenirken beklenmeyen bir hatayla karşılaşılmıştır.";
-    
-        if(this.options.isAdminPage){
-          this.alertifyService.message(message,{
-            dismissOthers:true,
-            messageType:MessageType.Error,
-            position:Position.TopRight
-          }
-          )
-        }else{
-          this.customToastrService.message(message,"Başarısız..",{
-            messageType:ToastrMessageType.Error,
-            position:ToastrPosition.TopRight
-          })
-        }
-       });
+         
+        });
       }
-      });
-    }
- 
+    })
+    
   }
-
-  //   this.httpClientService.post({
-  //     controller:this.options.controller,
-  //     action:this.options.action,
-  //     queryString:this.options.queryString,
-  //     headers:new HttpHeaders({"responseType":"blob"})
-  //  },fileData).subscribe(data => {
-
-  //   const message:string="Dosyalar başarıyla yüklenmiştir";
-  //   if(this.options.isAdminPage){
-  //     this.alertifyService.message(message,{
-  //       dismissOthers:true,
-  //       messageType:MessageType.Success,
-  //       position:Position.TopRight
-  //     }
-  //     )
-  //   }else{
-  //     this.customToastrService.message(message,"Başarılı..",{
-  //       messageType:ToastrMessageType.Success,
-  //       position:ToastrPosition.TopRight
-  //     })
-  //   }
-
-  //  },(errorResponse:HttpErrorResponse)=>{
- 
-  
-  //   const message:string="Dosyalar yüklenirken beklenmeyen bir hatayla karşılaşılmıştır.";
-
-  //   if(this.options.isAdminPage){
-  //     this.alertifyService.message(message,{
-  //       dismissOthers:true,
-  //       messageType:MessageType.Error,
-  //       position:Position.TopRight
-  //     }
-  //     )
-  //   }else{
-  //     this.customToastrService.message(message,"Başarısız..",{
-  //       messageType:ToastrMessageType.Error,
-  //       position:ToastrPosition.TopRight
-  //     })
-  //   }
-  //  });
-
-
-  
-
-  // openDialog(afterClosed:any): void {
+  // openDialog(afterClosed: any): void {
   //   const dialogRef = this.dialog.open(FileUploadDialogComponent, {
-  //     width:'250px',
   //     data: FileUploadDialogState.Yes,
   //   });
-
+  
   //   dialogRef.afterClosed().subscribe(result => {
-  //     if( result== FileUploadDialogState.Yes){
+  //     if(result == FileUploadDialogState.Yes){
   //       afterClosed();
   //     }
   //   });
   // }
-
-
-
-
-export class FileUploadOptions{
-  controller?:string;
-  action?:string;
-  queryString?:string;
-  explanation?:string;
-  accept?:string;
-  isAdminPage?: boolean=false;
+}
+export class FileUploadOptions {
+  controller?: string;
+  action?: string;
+  queryString?: string;
+  explanation?: string;
+  accept?: string;
+  isAdminPage?: boolean = false;
 }
