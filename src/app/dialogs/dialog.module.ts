@@ -6,7 +6,7 @@ import { FileUploadDialogComponent } from './file-upload-dialog/file-upload-dial
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { SelectJobPostImageDialogComponent } from './select-job-post-image-dialog/select-job-post-image-dialog.component';
-
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -19,7 +19,8 @@ import { SelectJobPostImageDialogComponent } from './select-job-post-image-dialo
     CommonModule,
     MatDialogModule,
     MatButtonModule,
-    FileUploadModule
+    FileUploadModule,
+    MatCardModule
     
   ]
 })
