@@ -24,7 +24,8 @@ const routes: Routes = [
   },
      { path: "", component: HomeComponent },
       {path:"jobposts", loadChildren:()=> import("./ui/components/jobposts/jobposts.module").then(module=> module.JobpostsModule)},
-      {path:"login", loadChildren:()=> import("./ui/components/login/login.module").then(module=> module.LoginModule)}
+      {path:"login", loadChildren:()=> import("./ui/components/login/login.module").then(module=> module.LoginModule)},
+      {path:"register", loadChildren:()=> import("./ui/components/register/register.module").then(module=> module.RegisterModule)}
 
 
 ];
