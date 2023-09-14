@@ -36,8 +36,8 @@
                 >
             </div>
             <div class="mb-3">
-                <label for="passwordAgain" class="form-label">Şifre Tekrar *</label>
-                <input type="password" formControlName="passwordAgain" class="form-control" id="passwordAgain" [ngClass]="{'is-invalid': submitted && component.passwordAgain.errors}"
+                <label for="passwordConfirm" class="form-label">Şifre Tekrar *</label>
+                <input type="password" formControlName="passwordConfirm" class="form-control" id="passwordConfirm" [ngClass]="{'is-invalid': submitted && component.passwordConfirm.errors}"
                 >
                 <div *ngIf="submitted && frm.hasError('notSame')">Lütfen şifreyi doğrulayınız.</div>
             </div>

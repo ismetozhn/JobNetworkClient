@@ -3,6 +3,6 @@ export class User{
     surname: string;
     email:string;
     password: string;
-    passwordAgain: string;
+    passwordConfirm: string;
     contactNumber: string;
 }
