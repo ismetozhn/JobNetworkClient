@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+      <div class="image col md-3">
+        <img width="200px" src="https://icon-library.com/images/professional-networking-icon/professional-networking-icon-5.jpg" alt="">
+      </div>
+     
+          <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input #txtEmail type="email" class="form-control" id="email" placeholder="Email adresinizi giriniz."
+              >
+                  <div class="form-text invalid-feedback ">***</div>
+                  <div class="form-text invalid-feedback ">Lütfen e-mail'i düzgün giriniz.</div>
+          </div>
+          
+          <div class="mb-3">
+              <label for="password" class="form-label">Şifre</label>
+              <input #txtPassword type="password" formControlName="password" class="form-control" id="password" placeholder="Şifrenizi giriniz."
+              >
+          </div>
+         
+          <br>
+          <button type="submit" class="btn btn-primary" (click)="login(txtEmail.value,txtPassword.value)"  >Giriş Yap</button>
+      
+  </div>
+  <div class="col-md-3"></div>
+</div>
