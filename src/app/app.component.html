@@ -21,10 +21,13 @@
             <a class="nav-link active" aria-current="page" href="#">Hakkımızda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="register" href="#">Kayıt Ol</a>
+            <a class="nav-link active" aria-current="page" routerLink="register" *ngIf="!authService.isAuthenticated">Kayıt Ol</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="login" href="#">Giriş Yap</a>
+            <a class="nav-link active" aria-current="page" routerLink="login" *ngIf="!authService.isAuthenticated">Giriş Yap</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active"  aria-current="page" (click)="signOut()"  style="color: red;cursor: pointer;" *ngIf="authService.isAuthenticated">Çıkış Yap</a>
           </li>
           
           <!-- <li class="nav-item dropdown">
@@ -42,7 +45,9 @@
         </ul>
         <form class="d-flex">
          
-          <button class="btn btn-outline-success" type="submit" routerLink="admin">Yönetim Paneli</button>
+          <button class="btn btn-outline-success" type="submit" routerLink="admin" *ngIf="authService.isAuthenticated">Yönetim Paneli</button>
+
+          <img style="width: 50px;" *ngIf="!authService.isAuthenticated" src="https://cdn1.iconfinder.com/data/icons/okku-office/32/Okku_Office_Expand-39-256.png" alt="">
         </form>
         
       </div>

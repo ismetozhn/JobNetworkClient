@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './services/common/auth.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
-import { Position } from './services/admin/alertify.service';
+import { Router } from '@angular/router';
 declare var alertify: any
 
 
@@ -11,20 +12,19 @@ declare var alertify: any
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'JobNetworkClient';
+  constructor(public authService: AuthService, private toastrService: CustomToastrService, private router: Router){
+    authService.identityCheck();
+}
 
-  constructor(private toastrService:CustomToastrService){
-   // toastrService.message("Welcome to mypage","OZHN",ToastrMessageType.Info,ToastrPosition.TopCenter)
-   // toastrService.message("IM heree","OZHN",ToastrMessageType.Error,ToastrPosition.TopCenter)
-
-  //  toastrService.message("Hoş","Geldiniz",{
-  //   messageType: ToastrMessageType.Info,
-  //   position: ToastrPosition.TopCenter
-  //  });
-
-  }
-
-  
+signOut(){
+  localStorage.removeItem("accessToken");
+  this.authService.identityCheck();
+  this.router.navigate([""]);
+  this.toastrService.message("Oturum Sonlandırılmıştır!", "Çıkış", {
+    messageType: ToastrMessageType.Error,
+    position: ToastrPosition.TopRight
+  });
+}
 }
 
 
