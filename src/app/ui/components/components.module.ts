@@ -19,7 +19,7 @@ import { RegisterModule } from './register/register.module';
     CommonModule,
     JobpostsModule,
     HomeModule,
-    LoginModule,
+    //LoginModule,
     RegisterModule
   ]
 })

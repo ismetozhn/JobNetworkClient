@@ -18,6 +18,8 @@
               <input #txtPassword type="password" formControlName="password" class="form-control" id="password" placeholder="Şifrenizi giriniz."
               >
           </div>
+
+          <asl-google-signin-button></asl-google-signin-button>
          
           <br>
           <button type="submit" class="btn btn-primary" (click)="login(txtEmail.value,txtPassword.value)"  >Giriş Yap</button>

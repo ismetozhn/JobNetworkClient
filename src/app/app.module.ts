@@ -1,3 +1,4 @@
+import { LoginComponent } from './ui/components/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,6 +17,7 @@ import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.com
 import { FileUploadComponent } from './services/common/file-upload/file-upload.component';
 import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upload-dialog.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 
 
@@ -23,7 +25,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 @NgModule({
     declarations: [
         AppComponent,
-   
+        LoginComponent
      
         
         
@@ -43,13 +45,28 @@ import { JwtModule } from '@auth0/angular-jwt';
                 tokenGetter: () => localStorage.getItem("accessToken"),
                 allowedDomains:["localhost:7250"]
             }
-        })
+        }),
+        SocialLoginModule,
+        GoogleSigninButtonModule
        
         
     ],
-    providers: [{
-        provide:"baseUrl", useValue:"https://localhost:7250/api", multi:true
-    }],
+    providers: [
+      { provide: "baseUrl", useValue: "https://localhost:7250/api", multi: true },
+      {
+        provide: "SocialAuthServiceConfig",
+        useValue: {
+          autoLogin: false,
+          providers: [
+            {
+              id: GoogleLoginProvider.PROVIDER_ID,
+              provider: new GoogleLoginProvider("1094843503318-1it6qtd89scle6en0o2kuufsa381nvu8.apps.googleusercontent.com")
+            }
+          ],
+          onError: err => console.log(err)
+        } as SocialAuthServiceConfig
+      }
+],
     bootstrap: [AppComponent]
  
 })
