@@ -31,9 +31,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  async login(usernameOrEmail: string, password: string) {
+  async login(Email: string, password: string) {
     this.showSpinner(SpinnerType.BallAtom);
-    await this.userAuthService.login(usernameOrEmail, password, () => {
+    await this.userAuthService.login(Email, password, () => {
       this.authService.identityCheck();
       this.activatedRoute.queryParams.subscribe(params => {
         const returnUrl: string = params["returnUrl"];

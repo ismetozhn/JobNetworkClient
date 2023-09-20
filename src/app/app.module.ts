@@ -10,7 +10,7 @@ import { AdminModule } from './admin/admin.module';
 import { UiModule } from './ui/ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BaseComponent } from './base/base.component';
 import { DeleteDirective } from './directives/admin/delete.directive';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
@@ -18,6 +18,7 @@ import { FileUploadComponent } from './services/common/file-upload/file-upload.c
 import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upload-dialog.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
 
 
 
@@ -65,7 +66,8 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig,
           ],
           onError: err => console.log(err)
         } as SocialAuthServiceConfig
-      }
+      },
+      {provide:HTTP_INTERCEPTORS, useClass:HttpErrorHandlerInterceptorService, multi: true}
 ],
     bootstrap: [AppComponent]
  

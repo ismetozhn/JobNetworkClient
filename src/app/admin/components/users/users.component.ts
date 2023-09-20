@@ -17,9 +17,9 @@ export class UsersComponent extends BaseComponent implements OnInit{
       this.showSpinner(SpinnerType.BallAtom);
 
 
-     this.httpClientService.get({
-      controller:"users"
-     }).subscribe(data=> console.log(data))
+    //  this.httpClientService.get({
+    //   controller:"users"
+    //  }).subscribe(data=> console.log(data))
 
      
 
