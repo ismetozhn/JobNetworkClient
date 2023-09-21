@@ -13,70 +13,45 @@ import { ListJobPostsImage } from 'src/app/contracts/list_jobpost_image';
 })
 export class JobpostsService {
 
-  constructor(private httpClientService:HttpClientService) { }
+  constructor(private httpClientService: HttpClientService) { }
 
-
-  // create(jobPost: CreateJobPost, succesCallBack?: any){
-  //   this.httpClientService.post({
-  //     controller:"jobposts"
-  //   },jobPost)
-  //   .subscribe(result =>{
-  //     succesCallBack();
-
-  //   });
-  // }
-
-
-  create(jobPost: CreateJobPost, successCallBack?:()=>void,errorCallBack?:(errorMessage:string)=> void) {
+  create(jobPost: CreateJobPost, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
     this.httpClientService.post({
-      controller:"JobPosts"
-    },jobPost)
-    .subscribe(result =>{
-      successCallBack();
+      controller: "JobPosts"
+    }, jobPost)
+      .subscribe(result => {
+        successCallBack();
 
-      
 
-    },(errorResponse: HttpErrorResponse,
-    )=>{
-     const _error:Array<{key:string,value:Array<string>}>= errorResponse.error;
-     let message="";
-     _error.forEach((v,index)=>{
-      v.value.forEach((_v,_index)=>{
-        message+=`${_v}<br>`;
+
+      }, (errorResponse: HttpErrorResponse,
+      ) => {
+        const _error: Array<{ key: string, value: Array<string> }> = errorResponse.error;
+        let message = "";
+        _error.forEach((v, index) => {
+          v.value.forEach((_v, _index) => {
+            message += `${_v}<br>`;
+          });
+        });
+        errorCallBack(message);
+
       });
-     });
-     errorCallBack(message);
-
-    });
   }
 
-  // async read(page:number=0, size: number=5,successCallBack?:()=>void,errorCallBack?:(errorMessage:string)=>void): Promise<{totalCount: number; jobposts: ListJobpost[]}>{
-  //   const promiseData: Promise<{totalCount: number; jobposts: ListJobpost[]}>=this.httpClientService.get<{totalCount: number; jobposts: ListJobpost[]}>({
-  //     controller:"jobposts",
-  //     queryString:`page=${page}&size=${size}`
+  async read(page: number = 0, size: number = 5, succesCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalJobPostCount: number; jobPosts: ListJobpost[] }> {
+    const promiseData: Promise<{ totalJobPostCount: number; jobPosts: ListJobpost[] }> = this.httpClientService.get<{ totalJobPostCount: number; jobPosts: ListJobpost[] }>({
+      controller: "jobposts",
+      queryString: `page=${page}&size=${size}`
+    }).toPromise();
 
-  //   }).toPromise();
+    promiseData.then(d => succesCallBack())
+      .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message))
 
-  //   promiseData.then(d=> successCallBack())
-  //   .catch((errorResponse: HttpErrorResponse)=>errorCallBack(errorResponse.message))
-
-  //   return await promiseData;
-  // }
-
-  async read(page:number= 0, size: number=5, succesCallBack?: ()=> void, errorCallBack?: (errorMessage: string)=> void): Promise<{totalCount:number; jobPosts:ListJobpost[] }> {
-    const promiseData: Promise<{totalCount:number; jobPosts:ListJobpost[] }> = this.httpClientService.get<{totalCount:number; jobPosts:ListJobpost[] }>({
-       controller:"jobposts",
-       queryString:`page=${page}&size=${size}`
-     }).toPromise();
- 
-     promiseData.then(d => succesCallBack())
-     .catch((errorResponse: HttpErrorResponse)=>errorCallBack(errorResponse.message))
- 
-     return await promiseData;
-   }
+    return await promiseData;
+  }
 
 
-   async delete(id: string) {
+  async delete(id: string) {
     const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
       controller: "jobposts",
     }, id);
@@ -85,11 +60,11 @@ export class JobpostsService {
   }
 
 
-  async readImages(id : string, succesCallBack?:()=>void): Promise<ListJobPostsImage[]>{
-   const getObservable: Observable<ListJobPostsImage[]> = this.httpClientService.get<ListJobPostsImage[]>({
-      action:"GetImages",
-      controller:"jobposts"
-    },id);
+  async readImages(id: string, succesCallBack?: () => void): Promise<ListJobPostsImage[]> {
+    const getObservable: Observable<ListJobPostsImage[]> = this.httpClientService.get<ListJobPostsImage[]>({
+      action: "GetImages",
+      controller: "jobposts"
+    }, id);
 
     const images: ListJobPostsImage[] = await firstValueFrom(getObservable);
     succesCallBack();
@@ -98,21 +73,31 @@ export class JobpostsService {
 
   }
 
-  async deleteImage(id :string, imageId: string, succesCallBack?: () => void){
+  async deleteImage(id: string, imageId: string, succesCallBack?: () => void) {
     const deleteObservable = this.httpClientService.delete({
-      action:"deletejobpostimage",
-      controller:"jobposts",
+      action: "deletejobpostimage",
+      controller: "jobposts",
       queryString: `imageId=${imageId}`
-    },id)
+    }, id)
 
     await firstValueFrom(deleteObservable);
     succesCallBack();
 
   }
+
+  async changeShowcaseImage(imageId: string, jobPostId: string, successCallBack?: () => void): Promise<void> {
+    const changeShowCaseImageObservable = this.httpClientService.get({
+      controller: "jobposts",
+      action: "ChangeShowCaseImage",
+      queryString: `imageId=${imageId}&jobPostId=${jobPostId}`
+    });
+    await firstValueFrom(changeShowCaseImageObservable);
+    successCallBack();
   }
+}
 
 
 
 
- 
-  
+
+

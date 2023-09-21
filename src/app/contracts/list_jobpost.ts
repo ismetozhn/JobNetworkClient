@@ -1,3 +1,5 @@
+import { ListJobPostsImage } from "./list_jobpost_image";
+
 export class ListJobpost{
     
     title!:string;
@@ -5,5 +7,7 @@ export class ListJobpost{
     description!:string;
     createdDate!:Date;
     updatedDate!:Date;
+    jobPostImageFiles?: ListJobPostsImage[];
+    imagePath: string;
 
 }

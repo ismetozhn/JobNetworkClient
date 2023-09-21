@@ -20,11 +20,13 @@ const routes: Routes = [
       {
         path: "jobposts", loadChildren: () => import("./admin/components/jobposts/jobposts.module").then(module => module.JobpostsModule), canActivate:[AuthGuard]
       },
+      
    
     ], canActivate:[AuthGuard]
   },
      { path: "", component: HomeComponent },
       {path:"jobposts", loadChildren:()=> import("./ui/components/jobposts/jobposts.module").then(module=> module.JobpostsModule)},
+      {path:"jobposts/:pageNo", loadChildren:()=> import("./ui/components/jobposts/jobposts.module").then(module=> module.JobpostsModule)},
       {path:"login", loadChildren:()=> import("./ui/components/login/login.module").then(module=> module.LoginModule)},
       {path:"register", loadChildren:()=> import("./ui/components/register/register.module").then(module=> module.RegisterModule)}
 

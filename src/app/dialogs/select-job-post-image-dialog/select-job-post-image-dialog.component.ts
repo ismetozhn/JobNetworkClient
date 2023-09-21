@@ -63,6 +63,12 @@ implements OnInit {
         });
       }
     })
+}
+  showCase(imageId: string){
+      this.spinner.show(SpinnerType.BallAtom);
+      this.jobpostsService.changeShowcaseImage(imageId, this.data as string, () => {
+        this.spinner.hide(SpinnerType.BallAtom);
+      });
   }
 }
 
