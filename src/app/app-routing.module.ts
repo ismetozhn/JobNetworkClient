@@ -20,6 +20,9 @@ const routes: Routes = [
       {
         path: "jobposts", loadChildren: () => import("./admin/components/jobposts/jobposts.module").then(module => module.JobpostsModule), canActivate:[AuthGuard]
       },
+      {
+        path: "authorize-menu", loadChildren: () => import("./admin/components/authorize-menu/authorize-menu.module").then(module => module.AuthorizeMenuModule), canActivate:[AuthGuard]
+      }
       
    
     ], canActivate:[AuthGuard]
