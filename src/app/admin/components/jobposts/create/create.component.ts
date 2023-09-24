@@ -24,14 +24,7 @@ super(spinner)
   }
   @Output() createdJobPost: EventEmitter<CreateJobPost> = new EventEmitter();
 
-  // @Output()fileUploadOptions: Partial<FileUploadOptions>={
-  //   action:"upload",
-  //   controller:"jobposts",
-  //   explanation:"Resimleri sürükleyin veya seçin...",
-  //   isAdminPage:true,
-  //   accept:".png,.jpg, .pdf"
-    
-  // };
+  
 
 
   create(title:HTMLInputElement,companyName:HTMLInputElement,description:HTMLInputElement,startDate:HTMLInputElement,endDate:HTMLInputElement,imagePath:HTMLInputElement,jobTypeId:HTMLInputElement){

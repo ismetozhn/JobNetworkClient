@@ -15,57 +15,46 @@ declare var $: any;
 export class DeleteDirective {
 
   constructor(
-   private element:ElementRef,
-   private _renderer: Renderer2,
-   private jobPostService : JobpostsService,
-   private spinner: NgxSpinnerService,
-   public dialog: MatDialog,
-   private dialogService:DialogService
+    private element: ElementRef,
+    private _renderer: Renderer2,
+    private jobPostService: JobpostsService,
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog,
+    private dialogService: DialogService
   ) {
-    const img= _renderer.createElement("img");
-    img.setAttribute("src","../../../../../assets/delete.png");
-    img.setAttribute("style","cursor: pointer;");
-    img.width=25;
-    img.height=25;
+    const img = _renderer.createElement("img");
+    img.setAttribute("src", "../../../../../assets/delete.png");
+    img.setAttribute("style", "cursor: pointer;");
+    img.width = 25;
+    img.height = 25;
     _renderer.appendChild(element.nativeElement, img);
 
-   }
+  }
 
-   @Input() id: string;
-   @Output() callback: EventEmitter<any> = new EventEmitter();
+  @Input() id: string;
+  @Output() callback: EventEmitter<any> = new EventEmitter();
 
-   @HostListener("click")
-   async onclick() {
+  @HostListener("click")
+  async onclick() {
 
     this.dialogService.openDialog({
-      componentType:DeleteDialogComponent,
-    data:DeleteState.Yes,
-    afterClosed:async () => {
-     
-      const td: HTMLTableCellElement = this.element.nativeElement;
-      await this.jobPostService.delete(this.id);
-      $(td.parentElement).animate({
-        opacity: 0,
-        left: "+=50",
-        height: "toogle"
-      }, 700, () => {
-        this.callback.emit();
-      });
-    }
-    
-  })
+      componentType: DeleteDialogComponent,
+      data: DeleteState.Yes,
+      afterClosed: async () => {
 
-  //  openDialog(afterClosed:any): void {
-  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
-  //     width:'250px',
-  //     data: DeleteState.Yes,
-  //   });
+        const td: HTMLTableCellElement = this.element.nativeElement;
+        await this.jobPostService.delete(this.id);
+        $(td.parentElement).animate({
+          opacity: 0,
+          left: "+=50",
+          height: "toogle"
+        }, 700, () => {
+          this.callback.emit();
+        });
+      }
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if( result== DeleteState.Yes){
-  //       afterClosed();
-  //     }
-  //   });
-  // }
+    })
 
-}}
+
+  }
+}

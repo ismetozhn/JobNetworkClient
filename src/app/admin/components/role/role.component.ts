@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ListComponent } from './list/list.component';
 
 @Component({
   selector: 'app-role',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class RoleComponent {
 
+
+  @ViewChild(ListComponent) listComponents: ListComponent;
+
+  createdRole(createdRole: string){
+    this.listComponents.getRoles();
+  }
 }

@@ -30,18 +30,7 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  // async getJobPosts(){
-  //   this.showSpinner(SpinnerType.BallAtom)
-  //   const allJobPosts:{totalCount: number; jobposts: ListJobpost[]}=await this.jobpostsService.read(this.paginator ?this.paginator.pageIndex :0,this.paginator?this.paginator.pageSize : 5,()=> this.hideSpinner(SpinnerType.BallAtom),errorMessage=> this.alertifyService.message(errorMessage,{
-  //     dismissOthers:true,
-  //     messageType:MessageType.Error,
-  //     position:Position.TopLeft
-  //   }))
 
-  //   this.dataSource= new MatTableDataSource<ListJobpost>(allJobPosts.jobposts);
-  //   this.paginator.length=allJobPosts.totalCount;
-   
-  // }
 
 
   async getJobPosts() {
