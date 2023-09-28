@@ -8,10 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { SelectJobPostImageDialogComponent } from './select-job-post-image-dialog/select-job-post-image-dialog.component';
 import {MatCardModule} from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { AuthorizeMenuDialogComponent } from './authorize-menu-dialog/authorize-menu-dialog.component';
+
 import {MatBadgeModule} from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     DeleteDialogComponent,
     
     SelectJobPostImageDialogComponent,
-         AuthorizeMenuDialogComponent 
+        
   ],
   imports: [
     CommonModule,
@@ -31,7 +32,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatBadgeModule,
     MatCardModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatListModule
     
   ]
 })

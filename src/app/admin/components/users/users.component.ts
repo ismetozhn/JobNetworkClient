@@ -1,7 +1,11 @@
+import { CreateJobPost } from 'src/app/contracts/create_jobpost';
 import { BaseComponent, SpinnerType } from './../../../base/base.component';
 import { HttpClientService } from './../../../services/common/http-client.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
+import { JobpostsService } from 'src/app/services/common/models/jobposts.service';
+import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
@@ -9,51 +13,48 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent extends BaseComponent implements OnInit{
-  constructor(spinner: NgxSpinnerService, private httpClientService : HttpClientService){
-    super(spinner);
-  }
-  ngOnInit(): void {
-   
-      this.showSpinner(SpinnerType.BallAtom);
-
-
-    //  this.httpClientService.get({
-    //   controller:"users"
-    //  }).subscribe(data=> console.log(data))
-
-     
-
-    //   this.httpClientService.post(
-    //   {controller:"jobposts"
-    //  },{
-    //    userTypeId:2,
-    //    name:"Kerem",
-    //    surname:"Yörük",
-    //    email:"ssss",
-    //    password:"abaa",
-    //    contactnumber:"53987714",
-    //    cv:"CV9"
-    //  }).subscribe();
-     
-
-  //  this.httpClientService.put({
-  //   controller:"jobposts",
-  //  },{
-  //   id:6,
-  //   name:"Ali",
-  //   surname:"Morcan",
-  //   email:"ssss",
-  //   password:"abaaffss",
-  //   contactnumber:"5398771477",
-  //   cv:"CV10"
-  //  }).subscribe();
+  constructor(private jobpostsService: JobpostsService,private alertify:AlertifyService, spinner: NgxSpinnerService,toastr: ToastrService){
+    super(spinner)
+      }
+      ngOnInit(): void {
+        
+      }
+      @Output() createdJobPost: EventEmitter<CreateJobPost> = new EventEmitter();
+    
       
-    //  this.httpClientService.delete({
-    //   controller:"jobposts"
-    //  }, "7")
-    //  .subscribe();
-    // 
-  }
-
-  
-}
+    
+    
+      create(title:HTMLInputElement,companyName:HTMLInputElement,description:HTMLInputElement,startDate:HTMLInputElement,endDate:HTMLInputElement,imagePath:HTMLInputElement,jobTypeId:HTMLInputElement){
+        this.showSpinner(SpinnerType.BallAtom);
+        const createJobPost:CreateJobPost=new CreateJobPost();
+        createJobPost.title=title.value;
+        createJobPost.companyName=companyName.value;
+        createJobPost.description=description.value;
+        createJobPost.startDate=startDate.value;
+        createJobPost.endDate=endDate.value;
+        createJobPost.imagePath=imagePath.value;
+        createJobPost.jobTypeId=parseInt(jobTypeId.value);
+    
+      
+    
+        this.jobpostsService.create(createJobPost,()=>{
+          this.hideSpinner(SpinnerType.BallAtom);
+          this.alertify.message("İlan yayınlanmıştır.",{
+            dismissOthers:true,
+            messageType: MessageType.Success,
+            position: Position.TopRight
+          });
+          this.createdJobPost.emit(createJobPost);
+        }, errorMessage=>{
+          this.alertify.message(errorMessage,{
+            dismissOthers:true,
+            messageType:MessageType.Error,
+            position:Position.TopRight
+          });
+        });
+         
+        
+        
+      
+      }
+    }

@@ -1,1 +1,50 @@
-<p>users works!</p>
+<form class="forms">
+<form class="example-form">
+    <mat-form-field class="example-full-width ">
+      <mat-label>İlan Başlığı</mat-label>
+      <input matInput #txtTitle>
+    </mat-form-field>
+  </form>
+  <form class="example-form">
+    <mat-form-field class="example-full-width  ">
+      <mat-label>Şirket Adı</mat-label>
+      <input matInput #txtCompanyName>
+    </mat-form-field>
+  </form>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>İlan Detayı</mat-label>
+      <input matInput #txtDescription>
+    </mat-form-field>
+  </form>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Başlangıç Tarihi</mat-label>
+      <input matInput type="date" #txtStartDate>
+    </mat-form-field>
+  </form>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Son Başvuru Tarihi</mat-label>
+      <input matInput type="date" #txtEndDate>
+    </mat-form-field>
+  </form>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Fotoğraf</mat-label>
+      <input matInput #txtImagePath>
+    </mat-form-field>
+  </form>
+  
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>KategoriId</mat-label>
+      <input matInput #txtJobTypeId>
+    </mat-form-field>
+  
+    <br>
+    <button mat-raised-button class="btn" color="primary"
+      (click)="create(txtTitle,txtCompanyName,txtDescription,txtStartDate,txtEndDate,txtImagePath,txtJobTypeId)">İlanı
+      Yayınla</button>
+  
+    </form>

@@ -2,6 +2,9 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
         <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)">
+            <div class="registertext">
+                <p>KULLANICI KAYIT FORMU</p>
+            </div>
             <div class="mb-3">
                 <label for="name" class="form-label">İsim *</label>
                 <input type="text" formControlName="name" class="form-control" id="name"
@@ -13,31 +16,31 @@
             </div>
             <div class="mb-3">
                 <label for="surname" class="form-label">Soyisim *</label>
-                <input type="text" formControlName="surname" class="form-control" id="surname" [ngClass]="{'is-invalid': submitted && component.surname.errors}" 
+                <input type="text" formControlName="surname" class="form-control" placeholder="Soyisminizi giriniz." id="surname" [ngClass]="{'is-invalid': submitted && component.surname.errors}" 
                 >
                 <div  *ngIf="submitted && component.surname.errors?.required"   class="form-text invalid-feedback ">Lütfen soyisim alanını boş geçmeyiniz.</div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email *</label>
-                <input type="email" formControlName="email" class="form-control" id="email" [ngClass]="{'is-invalid': submitted && component.email.errors}"
+                <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email adresinizi giriniz." [ngClass]="{'is-invalid': submitted && component.email.errors}"
                 >
                     <div  *ngIf="submitted && component.email.errors?.required"   class="form-text invalid-feedback ">Lütfen e-mail alanını boş geçmeyiniz.</div>
                     <div  *ngIf="submitted && component.email.errors?.email"   class="form-text invalid-feedback ">Lütfen e-mail'i düzgün giriniz.</div>
             </div>
             <div class="mb-3">
                 <label for="contactNumber" class="form-label">Telefon Numarası </label>
-                <input type="text" formControlName="contactNumber" class="form-control" id="contactNumber"
+                <input type="text" formControlName="contactNumber" class="form-control" placeholder="Cep telefonu numaranızı giriniz." id="contactNumber"
                     >
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+               
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Şifre *</label>
-                <input type="password" formControlName="password" class="form-control" id="password" [ngClass]="{'is-invalid': submitted && component.password.errors}"
+                <input type="password" formControlName="password" class="form-control" id="password" placeholder="Şifrenizi belirleyiniz." [ngClass]="{'is-invalid': submitted && component.password.errors}"
                 >
             </div>
             <div class="mb-3">
                 <label for="passwordConfirm" class="form-label">Şifre Tekrar *</label>
-                <input type="password" formControlName="passwordConfirm" class="form-control" id="passwordConfirm" [ngClass]="{'is-invalid': submitted && component.passwordConfirm.errors}"
+                <input type="password" formControlName="passwordConfirm" class="form-control" id="passwordConfirm" placeholder="Şifrenizi tekrar giriniz." [ngClass]="{'is-invalid': submitted && component.passwordConfirm.errors}"
                 >
                 <div *ngIf="submitted && frm.hasError('notSame')">Lütfen şifreyi doğrulayınız.</div>
             </div>

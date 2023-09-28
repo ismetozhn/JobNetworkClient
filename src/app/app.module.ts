@@ -23,6 +23,7 @@ import { HttpErrorHandlerInterceptorService } from './services/common/http-error
 
 
 
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -48,7 +49,8 @@ import { HttpErrorHandlerInterceptorService } from './services/common/http-error
             }
         }),
         SocialLoginModule,
-        GoogleSigninButtonModule
+        GoogleSigninButtonModule,
+        
        
         
     ],
